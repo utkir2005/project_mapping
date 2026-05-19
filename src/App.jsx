@@ -581,6 +581,8 @@ function AdminPanel({ token, projects, onClose }) {
     } catch { setCleanResult('Xatolik yuz berdi'); }
     setCleaning(false);
   };
+
+  const confirmImport = async () => {
     if (!importData) return;
     setImporting(true);
     try {
