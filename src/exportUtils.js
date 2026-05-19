@@ -8,8 +8,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 nav{position:fixed;left:0;top:0;width:220px;height:100vh;overflow-y:auto;background:#fff;border-right:1px solid #e7e5e4;padding:20px 14px}
 nav h2{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#78716c;margin-bottom:10px}
 nav ul{list-style:none}
-nav li a{display:block;padding:5px 10px;border-radius:6px;font-size:13px;color:#44403c;text-decoration:none;margin-bottom:2px}
+nav li a{display:block;padding:5px 10px;border-radius:6px;font-size:13px;color:#44403c;text-decoration:none;margin-bottom:2px;cursor:pointer}
 nav li a:hover{background:#f5f5f4}
+nav li a.active{background:#1c1917;color:#fff}
 main{margin-left:240px;padding:40px 48px;max-width:860px}
 .export-header{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid #e7e5e4}
 .export-header h1{font-size:30px;font-weight:700;margin-bottom:4px}
@@ -164,7 +165,7 @@ function buildHTML(projects, steps, imageMap, zipMode) {
     const done = pSteps.filter(s => s.status === 'done').length;
     const pct  = pSteps.length ? Math.round(done / pSteps.length * 100) : 0;
 
-    nav += `<li><a href="#p-${p.id}">${esc(p.name)}</a></li>`;
+    nav += `<li><a onclick="showProject('${p.id}')">${esc(p.name)}</a></li>`;
 
     content += `
 <div class="project" id="p-${p.id}">
@@ -239,6 +240,20 @@ function buildHTML(projects, steps, imageMap, zipMode) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Loyihalarim &mdash; ${new Date().toLocaleDateString()}</title>
 <style>${EXPORT_CSS}</style>
+<script>
+function showProject(id) {
+  document.querySelectorAll('.project').forEach(function(p) {
+    p.style.display = p.id === 'p-' + id ? 'block' : 'none';
+  });
+  document.querySelectorAll('nav li a').forEach(function(a) {
+    a.classList.toggle('active', a.getAttribute('onclick') === "showProject('" + id + "')");
+  });
+}
+window.onload = function() {
+  var first = document.querySelector('.project');
+  if (first) showProject(first.id.replace('p-', ''));
+};
+</script>
 </head>
 <body>
 ${nav}
