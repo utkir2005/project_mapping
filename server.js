@@ -22,7 +22,7 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 const JWT_SECRET     = process.env.JWT_SECRET     || 'o\'zgartiring-bu-kalitni';
 const PORT           = parseInt(process.env.PORT  || '3001');
 const MAX_HISTORY    = 50;
-const MIN_INTERVAL   = 60 * 1000;
+const MIN_INTERVAL   = 60 * 60 * 1000; // 1 soat
 
 // Railway volumeda saqlash uchun: DATA_DIR=/data
 // Localda: loyiha papkasida
@@ -261,5 +261,3 @@ app.listen(PORT, () => {
   console.log(`✓ Foydalanuvchilar: users.json`);
   console.log('');
 });
- 
- 

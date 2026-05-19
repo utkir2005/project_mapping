@@ -6,7 +6,7 @@ import {
   ExternalLink, ChevronLeft, ChevronRight, Upload, RotateCcw,
   FileSpreadsheet, FileType, Archive, File as FileIcon, ZoomIn,
   Loader2, History, GripVertical, LogOut, Shield,
-  MessageCircle, Send, UserPlus
+  MessageCircle, Send, UserPlus, Download
 } from 'lucide-react';
 
 // ============ CONSTANTS ============
@@ -526,10 +526,12 @@ function LoginScreen({ onLogin }) {
 // ============ ADMIN PANEL ============
 
 function AdminPanel({ token, projects, onClose }) {
-  const [users,     setUsers]     = useState([]);
-  const [loading,   setLoading]   = useState(true);
-  const [userModal, setUserModal] = useState(null);
-  const [delConfirm,setDelConfirm]= useState(null);
+  const [users,      setUsers]      = useState([]);
+  const [loading,    setLoading]    = useState(true);
+  const [userModal,  setUserModal]  = useState(null);
+  const [delConfirm, setDelConfirm] = useState(null);
+  const [importData, setImportData] = useState(null);
+  const [importing,  setImporting]  = useState(false);
 
   const loadUsers = () => {
     apiFetch('/api/users', token)
@@ -538,6 +540,46 @@ function AdminPanel({ token, projects, onClose }) {
   };
 
   useEffect(() => { loadUsers(); }, []);
+
+  const handleExport = async () => {
+    try {
+      const r    = await apiFetch('/api/data', token);
+      const data = await r.json();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = `loyihalarim_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) { alert('Export xatoligi: ' + e.message); }
+  };
+
+  const handleImportFile = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!data.projects || !data.steps) { alert('Noto\'g\'ri fayl formati'); return; }
+      setImportData(data);
+    } catch { alert('Fayl o\'qishda xatolik — JSON format to\'g\'ri emas'); }
+    e.target.value = '';
+  };
+
+  const confirmImport = async () => {
+    if (!importData) return;
+    setImporting(true);
+    try {
+      await apiFetch('/api/data', token, { method: 'POST', body: importData });
+      setImportData(null);
+      onClose();
+      window.location.reload();
+    } catch { alert('Import xatoligi'); }
+    setImporting(false);
+  };
 
   const deleteUser = async (id) => {
     await apiFetch(`/api/users/${id}`, token, { method: 'DELETE' });
@@ -599,6 +641,28 @@ function AdminPanel({ token, projects, onClose }) {
           )}
         </div>
 
+        {/* Export / Import */}
+        <div className="mt-6 pt-4 border-t border-stone-100">
+          <div className="text-xs uppercase tracking-wider text-stone-500 mb-3" style={{ letterSpacing: '0.08em' }}>
+            Ma'lumotlarni boshqarish
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <button onClick={handleExport}
+                    className="px-3 py-2 text-sm rounded-md bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 inline-flex items-center gap-1.5">
+              <Download className="w-4 h-4" /> Export (JSON)
+            </button>
+            <label className="px-3 py-2 text-sm rounded-md bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200 inline-flex items-center gap-1.5 cursor-pointer">
+              <Upload className="w-4 h-4" /> Import (JSON)
+              <input type="file" accept=".json" className="hidden" onChange={handleImportFile} />
+            </label>
+          </div>
+          <p className="text-xs text-stone-400 mt-2 leading-relaxed">
+            Export — barcha ma'lumotlarni JSON fayl sifatida yuklab oling (zaxira uchun).<br />
+            Import — boshqa qurilmadagi yoki eski ma'lumotlarni yuklang (joriy ma'lumotlar almashtiriladi).
+          </p>
+        </div>
+      </div>
+
         {userModal !== null && (
           <UserModal
             user={userModal === 'new' ? null : userModal}
@@ -615,6 +679,17 @@ function AdminPanel({ token, projects, onClose }) {
             message={`"${delConfirm.name}" — bu amalni qaytarib bo'lmaydi.`}
             onConfirm={() => deleteUser(delConfirm.id)}
             onCancel={() => setDelConfirm(null)}
+          />
+        )}
+
+        {importData && (
+          <ConfirmDialog
+            title="Import qilasizmi?"
+            message={`${importData.projects?.length || 0} ta loyiha, ${importData.steps?.length || 0} ta bosqich yuklanadi. Joriy barcha ma'lumotlar almashtiriladi.`}
+            confirmLabel={importing ? 'Yuklanmoqda...' : 'Ha, import qilish'}
+            danger={true}
+            onConfirm={confirmImport}
+            onCancel={() => setImportData(null)}
           />
         )}
       </div>
