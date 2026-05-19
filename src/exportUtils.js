@@ -23,7 +23,12 @@ main{margin-left:240px;padding:40px 48px;max-width:860px}
 .progress-label{font-size:12px;color:#78716c;margin-bottom:20px}
 .step{background:#fff;border:1px solid #e7e5e4;border-radius:12px;margin-bottom:10px;overflow:hidden}
 .step-pending{opacity:.65}
-.step-header{padding:14px 18px}
+.step-header{padding:14px 18px;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.step-header:hover{background:#fafaf9}
+.step-chevron{font-size:16px;color:#a8a29e;transition:transform .2s;flex-shrink:0;margin-top:2px}
+.step.open .step-chevron{transform:rotate(180deg)}
+.step-body{display:none;padding:14px 18px;border-top:1px solid #f5f5f4}
+.step.open .step-body{display:block}
 .step-meta{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
 .badge{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500}
 .badge-done{background:#d1fae5;color:#065f46}
@@ -194,14 +199,17 @@ function buildHTML(projects, steps, imageMap, zipMode) {
 
       content += `
   <div class="step${step.status === 'pending' ? ' step-pending' : ''}">
-    <div class="step-header">
-      <div class="step-meta">
-        <span class="badge badge-${step.status}">${SL[step.status] || step.status}</span>
-        <span class="step-type">${TL[step.type] || step.type}</span>
-        <span class="step-date">${fmtDate(effDate(step))}</span>
+    <div class="step-header" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="step-meta">
+          <span class="badge badge-${step.status}">${SL[step.status] || step.status}</span>
+          <span class="step-type">${TL[step.type] || step.type}</span>
+          <span class="step-date">${fmtDate(effDate(step))}</span>
+        </div>
+        <h3 class="step-title">${esc(step.title)}</h3>
+        <p class="step-short">${esc(step.shortDescription || '')}</p>
       </div>
-      <h3 class="step-title">${esc(step.title)}</h3>
-      <p class="step-short">${esc(step.shortDescription || '')}</p>
+      <span class="step-chevron">&#8964;</span>
     </div>
     <div class="step-body">
       ${step.fullDescription ? `<p class="step-full">${esc(step.fullDescription)}</p>` : ''}
