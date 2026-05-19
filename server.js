@@ -24,10 +24,14 @@ const PORT           = parseInt(process.env.PORT  || '3001');
 const MAX_HISTORY    = 50;
 const MIN_INTERVAL   = 60 * 1000;
 
-const DATA_FILE     = join(__dirname, 'data.json');
-const HISTORY_FILE  = join(__dirname, 'history.json');
-const USERS_FILE    = join(__dirname, 'users.json');
-const COMMENTS_FILE = join(__dirname, 'comments.json');
+// Railway volumeda saqlash uchun: DATA_DIR=/data
+// Localda: loyiha papkasida
+const DATA_DIR = process.env.DATA_DIR || __dirname;
+
+const DATA_FILE     = join(DATA_DIR, 'data.json');
+const HISTORY_FILE  = join(DATA_DIR, 'history.json');
+const USERS_FILE    = join(DATA_DIR, 'users.json');
+const COMMENTS_FILE = join(DATA_DIR, 'comments.json');
 
 const app = express();
 app.use(express.json({ limit: '500mb' }));
@@ -225,6 +229,27 @@ app.get('/api/history/:id', auth, adminOnly, (req, res) => {
   const e = h.find(x => x.id === req.params.id);
   if (!e) return res.status(404).json({ error: 'Topilmadi' });
   res.json(e);
+});
+
+// ─── Production: React build fayllarini uzatish ────────────────────
+
+const DIST  = join(__dirname, 'dist');
+const INDEX = join(DIST, 'index.html');
+
+console.log('App dir  :', __dirname);
+console.log('Dist dir :', DIST);
+console.log('Dist bor :', existsSync(DIST));
+console.log('Index bor:', existsSync(INDEX));
+
+app.use(express.static(DIST));
+
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Not found' });
+  if (existsSync(INDEX)) {
+    res.sendFile(INDEX);
+  } else {
+    res.status(200).send(`<h2>dist/ papkasi topilmadi</h2><p>App dir: ${__dirname}</p><p>Dist: ${DIST}</p><p>Mavjud: ${existsSync(DIST)}</p>`);
+  }
 });
 
 // ─── Ishga tushirish ────────────────────────────────────────────────
