@@ -243,12 +243,11 @@ console.log('Index bor:', existsSync(INDEX));
 
 app.use(express.static(DIST));
 
-app.get('*', (req, res) => {
-  if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Not found' });
+app.use((req, res) => {
   if (existsSync(INDEX)) {
     res.sendFile(INDEX);
   } else {
-    res.status(200).send(`<h2>dist/ papkasi topilmadi</h2><p>App dir: ${__dirname}</p><p>Dist: ${DIST}</p><p>Mavjud: ${existsSync(DIST)}</p>`);
+    res.send('dist/index.html topilmadi. App dir: ' + __dirname);
   }
 });
 
