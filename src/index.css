@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+}
+.font-body {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+}
+.tracker-prose p { margin-bottom: 0.875rem; line-height: 1.75; }
+.tracker-prose p:last-child { margin-bottom: 0; }
+.tracker-prose p:first-of-type::first-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 3rem; line-height: 0.85;
+  float: left; padding-right: 0.4rem;
+  padding-top: 0.35rem; font-weight: 500;
+}
