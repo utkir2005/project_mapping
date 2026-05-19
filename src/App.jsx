@@ -642,7 +642,7 @@ function AdminPanel({ token, projects, onClose }) {
         </div>
 
         {/* Export / Import */}
-        <div className="mt-6 pt-4 border-t border-stone-100">
+        <div className="px-5 pb-5 pt-4 border-t border-stone-100 flex-shrink-0">
           <div className="text-xs uppercase tracking-wider text-stone-500 mb-3" style={{ letterSpacing: '0.08em' }}>
             Ma'lumotlarni boshqarish
           </div>
@@ -657,11 +657,9 @@ function AdminPanel({ token, projects, onClose }) {
             </label>
           </div>
           <p className="text-xs text-stone-400 mt-2 leading-relaxed">
-            Export — barcha ma'lumotlarni JSON fayl sifatida yuklab oling (zaxira uchun).<br />
-            Import — boshqa qurilmadagi yoki eski ma'lumotlarni yuklang (joriy ma'lumotlar almashtiriladi).
+            Export — zaxira nusxa. Import — boshqa qurilmadan ma'lumot yuklash (joriy ma'lumotlar almashtiriladi).
           </p>
         </div>
-      </div>
 
         {userModal !== null && (
           <UserModal
