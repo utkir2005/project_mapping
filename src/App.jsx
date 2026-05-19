@@ -569,7 +569,18 @@ function AdminPanel({ token, projects, onClose }) {
     e.target.value = '';
   };
 
-  const confirmImport = async () => {
+  const [cleaning,   setCleaning]   = useState(false);
+  const [cleanResult,setCleanResult]= useState('');
+
+  const handleCleanImages = async () => {
+    setCleaning(true); setCleanResult('');
+    try {
+      const r = await apiFetch('/api/admin/clean-images', token, { method: 'POST' });
+      const d = await r.json();
+      setCleanResult(d.message || 'Tozalandi');
+    } catch { setCleanResult('Xatolik yuz berdi'); }
+    setCleaning(false);
+  };
     if (!importData) return;
     setImporting(true);
     try {
@@ -655,7 +666,15 @@ function AdminPanel({ token, projects, onClose }) {
               <Upload className="w-4 h-4" /> Import (JSON)
               <input type="file" accept=".json" className="hidden" onChange={handleImportFile} />
             </label>
+            <button onClick={handleCleanImages} disabled={cleaning}
+                    className="px-3 py-2 text-sm rounded-md bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200 inline-flex items-center gap-1.5 disabled:opacity-50">
+              {cleaning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+              Base64 rasmlarni tozalash
+            </button>
           </div>
+          {cleanResult && (
+            <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded mt-2">{cleanResult}</p>
+          )}
           <p className="text-xs text-stone-400 mt-2 leading-relaxed">
             Export — zaxira nusxa. Import — boshqa qurilmadan ma'lumot yuklash (joriy ma'lumotlar almashtiriladi).
           </p>
