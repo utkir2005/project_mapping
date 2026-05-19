@@ -8,6 +8,7 @@ import {
   Loader2, History, GripVertical, LogOut, Shield,
   MessageCircle, Send, UserPlus, Download
 } from 'lucide-react';
+import { exportAsHTML, exportAsZIP } from './exportUtils';
 
 // ============ CONSTANTS ============
 
@@ -477,7 +478,7 @@ export default function App() {
       )}
       {lightbox    && <Lightbox images={lightbox.images} startIndex={lightbox.index} onClose={() => setLightbox(null)} />}
       {showHistory && isAdmin && <HistoryModal token={token} onRestore={restoreFromHistory} onClose={() => setShowHistory(false)} />}
-      {showAdmin   && isAdmin && <AdminPanel token={token} projects={projects} onClose={() => setShowAdmin(false)} />}
+      {showAdmin   && isAdmin && <AdminPanel token={token} projects={projects} steps={steps} onClose={() => setShowAdmin(false)} />}
     </div>
   );
 }
@@ -525,7 +526,7 @@ function LoginScreen({ onLogin }) {
 
 // ============ ADMIN PANEL ============
 
-function AdminPanel({ token, projects, onClose }) {
+function AdminPanel({ token, projects, steps, onClose }) {
   const [users,      setUsers]      = useState([]);
   const [loading,    setLoading]    = useState(true);
   const [userModal,  setUserModal]  = useState(null);
@@ -571,6 +572,10 @@ function AdminPanel({ token, projects, onClose }) {
 
   const [cleaning,   setCleaning]   = useState(false);
   const [cleanResult,setCleanResult]= useState('');
+  const [exportStatus, setExportStatus] = useState('');
+
+  const handleExportHTMLFile = () => exportAsHTML(projects, steps, setExportStatus);
+  const handleExportZIPFile  = () => exportAsZIP(projects, steps, setExportStatus);
 
   const handleCleanImages = async () => {
     setCleaning(true); setCleanResult('');
@@ -662,18 +667,31 @@ function AdminPanel({ token, projects, onClose }) {
           <div className="flex gap-2 flex-wrap">
             <button onClick={handleExport}
                     className="px-3 py-2 text-sm rounded-md bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 inline-flex items-center gap-1.5">
-              <Download className="w-4 h-4" /> Export (JSON)
+              <Download className="w-4 h-4" /> JSON Export
             </button>
             <label className="px-3 py-2 text-sm rounded-md bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200 inline-flex items-center gap-1.5 cursor-pointer">
-              <Upload className="w-4 h-4" /> Import (JSON)
+              <Upload className="w-4 h-4" /> JSON Import
               <input type="file" accept=".json" className="hidden" onChange={handleImportFile} />
             </label>
+            <button onClick={handleExportHTMLFile} disabled={!!exportStatus}
+                    className="px-3 py-2 text-sm rounded-md bg-violet-50 text-violet-800 hover:bg-violet-100 border border-violet-200 inline-flex items-center gap-1.5 disabled:opacity-50">
+              {exportStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+              HTML Eksport
+            </button>
+            <button onClick={handleExportZIPFile} disabled={!!exportStatus}
+                    className="px-3 py-2 text-sm rounded-md bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200 inline-flex items-center gap-1.5 disabled:opacity-50">
+              {exportStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+              ZIP Eksport
+            </button>
             <button onClick={handleCleanImages} disabled={cleaning}
                     className="px-3 py-2 text-sm rounded-md bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200 inline-flex items-center gap-1.5 disabled:opacity-50">
               {cleaning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-              Base64 rasmlarni tozalash
+              Base64 tozalash
             </button>
           </div>
+          {exportStatus && (
+            <p className="text-xs text-violet-700 bg-violet-50 px-2 py-1 rounded mt-2">{exportStatus}</p>
+          )}
           {cleanResult && (
             <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded mt-2">{cleanResult}</p>
           )}
