@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import jwt from 'jsonwebtoken';
+import compression from 'compression';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -34,6 +35,7 @@ const USERS_FILE    = join(DATA_DIR, 'users.json');
 const COMMENTS_FILE = join(DATA_DIR, 'comments.json');
 
 const app = express();
+app.use(compression());
 app.use(express.json({ limit: '500mb' }));
 
 // ─── Yordamchi funksiyalar ──────────────────────────────────────────
