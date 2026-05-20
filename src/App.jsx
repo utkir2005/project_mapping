@@ -13,11 +13,11 @@ import { exportAsHTML, exportAsZIP } from './exportUtils';
 // ============ CONSTANTS ============
 
 const STEP_TYPES = [
-  { id: 'meeting',        label: 'Uchrashuv',     icon: Users },
-  { id: 'seminar',        label: 'Seminar',        icon: BarChart3 },
-  { id: 'online_training',label: 'Onlayn trening', icon: Monitor },
-  { id: 'agreement',      label: 'Kelishuv',       icon: FileText },
-  { id: 'other',          label: 'Boshqa',         icon: Circle },
+  { id: 'meeting',         label: 'Uchrashuv',     icon: Users },
+  { id: 'seminar',         label: 'Seminar',        icon: BarChart3 },
+  { id: 'online_training', label: 'Onlayn trening', icon: Monitor },
+  { id: 'agreement',       label: 'Kelishuv',       icon: FileText },
+  { id: 'other',           label: 'Boshqa',         icon: Circle },
 ];
 
 const STATUSES = {
@@ -27,14 +27,16 @@ const STATUSES = {
 };
 
 const DEMO_ID = 'p1';
-const DEMO_PROJECTS = [{ id: DEMO_ID, name: 'Yoshlar tadbirkorligi', description: '2026 yil loyihasi · TDIU bilan hamkorlikda', order: 0 }];
+const DEMO_PROJECTS = [
+  { id: DEMO_ID, name: 'Yoshlar tadbirkorligi', description: '2026 yil loyihasi · TDIU bilan hamkorlikda', order: 0 },
+];
 const DEMO_STEPS = [
-  { id: 'd1', projectId: DEMO_ID, title: "Boshlang'ich uchrashuv",  type: 'meeting',        scheduledDate: '2026-01-15', completedDate: '2026-01-15', status: 'done',     shortDescription: "Hamkorlar bilan tanishuv.",           fullDescription: "Toshkent shahar yoshlar markazi hamda 3 ta hamkor universitet vakillari ishtirok etdi.\n\nLoyiha maqsadlari, vaqt jadvali muhokama qilindi.", location: "Toshkent, Yoshlar markazi", participants: 12,   images: [], files: [] },
-  { id: 'd2', projectId: DEMO_ID, title: "Talab tahlili seminari",   type: 'seminar',        scheduledDate: '2026-01-28', completedDate: '2026-01-28', status: 'done',     shortDescription: "Yoshlar ehtiyojlarini aniqlash.",     fullDescription: "150 dan ortiq yoshdan ma'lumot to'plandi.\n\nAsosiy ehtiyojlar: moliya savodxonligi, marketing, huquqiy bilim.", location: "Toshkent",       participants: 28,   images: [], files: [] },
-  { id: 'd3', projectId: DEMO_ID, title: "Biznes asoslari trening",  type: 'online_training',scheduledDate: '2026-02-12', completedDate: '2026-02-12', status: 'done',     shortDescription: "4 soatlik onlayn dars.",              fullDescription: "Zoom orqali o'tkazildi. 87 ta qatnashchi muvaffaqiyatli o'tdi.",                                                             location: "Onlayn (Zoom)",  participants: 87,   images: [], files: [] },
-  { id: 'd4', projectId: DEMO_ID, title: "Hamkorlik kelishuvi",       type: 'agreement',      scheduledDate: '2026-03-05', completedDate: '2026-03-05', status: 'done',     shortDescription: "TDIU bilan 2 yillik shartnoma.",      fullDescription: "Talabalarga amaliyot joylari, stipendiya, birgalikda tadqiqotlar. HM-2026/14.",                                              location: "TDIU, Toshkent", participants: 6,    images: [], files: [] },
-  { id: 'd5', projectId: DEMO_ID, title: "Marketing strategiyasi",    type: 'seminar',        scheduledDate: '2026-04-18', completedDate: null,         status: 'progress', shortDescription: "Raqamli marketing seminari.",         fullDescription: "4 sessiyadan 2 tasi o'tkazildi.",                                                                                          location: "IT Park",        participants: 45,   images: [], files: [] },
-  { id: 'd6', projectId: DEMO_ID, title: "Moliyaviy savodxonlik",     type: 'online_training',scheduledDate: '2026-05-10', completedDate: null,         status: 'pending',  shortDescription: "Moliyani boshqarish onlayn kursi.",   fullDescription: "Budjet, soliq, investitsiya. 6 soatlik dastur.",                                                                           location: "Onlayn",         participants: null, images: [], files: [] },
+  { id: 'd1', projectId: DEMO_ID, title: "Boshlang'ich uchrashuv",  type: 'meeting',         scheduledDate: '2026-01-15', completedDate: '2026-01-15', status: 'done',     shortDescription: "Hamkorlar bilan tanishuv.",          fullDescription: "Toshkent shahar yoshlar markazi hamda 3 ta hamkor universitet vakillari ishtirok etdi.\n\nLoyiha maqsadlari muhokama qilindi.", location: "Toshkent, Yoshlar markazi", participants: 12,   images: [], files: [] },
+  { id: 'd2', projectId: DEMO_ID, title: "Talab tahlili seminari",  type: 'seminar',         scheduledDate: '2026-01-28', completedDate: '2026-01-28', status: 'done',     shortDescription: "Yoshlar ehtiyojlarini aniqlash.",    fullDescription: "150 dan ortiq yoshdan ma'lumot to'plandi.\n\nAsosiy ehtiyojlar: moliya savodxonligi, marketing, huquqiy bilim.", location: "Toshkent", participants: 28, images: [], files: [] },
+  { id: 'd3', projectId: DEMO_ID, title: "Biznes asoslari trening", type: 'online_training', scheduledDate: '2026-02-12', completedDate: '2026-02-12', status: 'done',     shortDescription: "4 soatlik onlayn dars.",             fullDescription: "87 ta qatnashchi muvaffaqiyatli o'tdi.", location: "Onlayn (Zoom)", participants: 87, images: [], files: [] },
+  { id: 'd4', projectId: DEMO_ID, title: "Hamkorlik kelishuvi",     type: 'agreement',       scheduledDate: '2026-03-05', completedDate: '2026-03-05', status: 'done',     shortDescription: "TDIU bilan 2 yillik shartnoma.",     fullDescription: "Talabalarga amaliyot joylari, stipendiya. HM-2026/14.", location: "TDIU, Toshkent", participants: 6, images: [], files: [] },
+  { id: 'd5', projectId: DEMO_ID, title: "Marketing strategiyasi",  type: 'seminar',         scheduledDate: '2026-04-18', completedDate: null,         status: 'progress', shortDescription: "Raqamli marketing seminari.",        fullDescription: "4 sessiyadan 2 tasi o'tkazildi.", location: "IT Park", participants: 45, images: [], files: [] },
+  { id: 'd6', projectId: DEMO_ID, title: "Moliyaviy savodxonlik",   type: 'online_training', scheduledDate: '2026-05-10', completedDate: null,         status: 'pending',  shortDescription: "Moliyani boshqarish kursi.",         fullDescription: "Budjet, soliq, investitsiya. 6 soatlik dastur.", location: "Onlayn", participants: null, images: [], files: [] },
 ];
 
 // ============ HELPERS ============
@@ -49,12 +51,12 @@ function formatDateShort(dateStr) {
 }
 
 function formatHistoryDate(ts) {
-  const d = new Date(ts);
-  const months = ['Yan','Fev','Mar','Apr','May','Iyn','Iyl','Avg','Sen','Okt','Noy','Dek'];
+  const d    = new Date(ts);
   const diff = Date.now() - d.getTime();
   const min  = Math.floor(diff / 60000);
   const hour = Math.floor(diff / 3600000);
   const hhmm = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+  const months = ['Yan','Fev','Mar','Apr','May','Iyn','Iyl','Avg','Sen','Okt','Noy','Dek'];
   if (min < 1)   return 'Hozir';
   if (min < 60)  return `${min} daqiqa oldin`;
   if (hour < 24) return `Bugun, ${hhmm}`;
@@ -63,7 +65,7 @@ function formatHistoryDate(ts) {
 }
 
 function formatCommentDate(ts) {
-  const d = new Date(ts);
+  const d    = new Date(ts);
   const diff = Date.now() - d.getTime();
   const min  = Math.floor(diff / 60000);
   const hour = Math.floor(diff / 3600000);
@@ -93,7 +95,16 @@ function getFileMeta(file) {
   return { icon: FileIcon, color: 'text-stone-700 bg-stone-100', label: 'FILE' };
 }
 
-// Token bilan fetch — har joyda ishlatiladi
+// Google Drive havolalarini to'g'ri formatga o'tkazish
+function convertDriveUrl(url) {
+  if (!url) return url;
+  const m  = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m)  return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1600`;
+  const m2 = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if (m2) return `https://drive.google.com/thumbnail?id=${m2[1]}&sz=w1600`;
+  return url;
+}
+
 function apiFetch(url, token, options = {}) {
   const { body, headers: extraHeaders, ...rest } = options;
   return fetch(url, {
@@ -110,18 +121,13 @@ function apiFetch(url, token, options = {}) {
 // ============ MAIN APP ============
 
 export default function App() {
-  // Auth
   const [token,       setToken]       = useState(() => localStorage.getItem('auth_token'));
   const [user,        setUser]        = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-
-  // Data
   const [projects,          setProjects]          = useState([]);
   const [steps,             setSteps]             = useState([]);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [loading,           setLoading]           = useState(true);
-
-  // UI
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
   const [expandedStepId, setExpandedStepId] = useState(null);
   const [projectModal,   setProjectModal]   = useState(null);
@@ -131,45 +137,36 @@ export default function App() {
   const [lightbox,       setLightbox]       = useState(null);
   const [showHistory,    setShowHistory]    = useState(false);
   const [showAdmin,      setShowAdmin]      = useState(false);
-
-  // Drag
   const [dragId,     setDragId]     = useState(null);
   const [dragOverId, setDragOverId] = useState(null);
-
-  // Saqlashdan avval yuklash tugaganini ta'minlash uchun
   const hasLoaded = useRef(false);
 
   const isAdmin    = user?.role === 'admin';
   const canEdit    = isAdmin;
   const canComment = isAdmin || user?.role === 'commenter';
 
-  // ── Token tekshirish ──
+  // Auth check
   useEffect(() => {
     if (!token) { setAuthLoading(false); return; }
     apiFetch('/api/auth/me', token)
       .then(r => r.ok ? r.json() : null)
-      .then(u => {
-        if (u) setUser(u);
-        else   handleLogout();
-      })
+      .then(u => { if (u) setUser(u); else handleLogout(); })
       .catch(() => {})
       .finally(() => setAuthLoading(false));
   }, []);
 
   const handleLogin = (newToken, newUser) => {
-    setToken(newToken);
-    setUser(newUser);
+    setToken(newToken); setUser(newUser);
     localStorage.setItem('auth_token', newToken);
   };
 
   const handleLogout = () => {
     setToken(null); setUser(null);
-    setProjects([]); setSteps([]);
-    setSelectedProjectId(null);
+    setProjects([]); setSteps([]); setSelectedProjectId(null);
     localStorage.removeItem('auth_token');
   };
 
-  // ── Ma'lumotlarni yuklash ──
+  // Load data
   useEffect(() => {
     if (!user || !token) return;
     hasLoaded.current = false;
@@ -177,22 +174,16 @@ export default function App() {
     apiFetch('/api/data', token)
       .then(r => r.json())
       .then(d => {
-        const prjs = d.projects || [];
-        const stps = d.steps    || [];
-        setProjects(prjs);
-        setSteps(stps);
-        if (prjs.length > 0) setSelectedProjectId(prjs[0].id);
+        setProjects(d.projects || []);
+        setSteps(d.steps || []);
+        if (d.projects?.length > 0) setSelectedProjectId(d.projects[0].id);
         hasLoaded.current = true;
         setLoading(false);
       })
-      .catch(() => {
-        // Xatolikda projectlarni o'zgartirmaymiz
-        hasLoaded.current = true;
-        setLoading(false);
-      });
+      .catch(() => { hasLoaded.current = true; setLoading(false); });
   }, [user]);
 
-  // ── Ma'lumotlarni saqlash (faqat admin, faqat yuklangandan keyin) ──
+  // Save data
   useEffect(() => {
     if (loading || !isAdmin || !token || !hasLoaded.current) return;
     apiFetch('/api/data', token, {
@@ -201,16 +192,12 @@ export default function App() {
     }).catch(console.warn);
   }, [projects, steps, selectedProjectId, loading, isAdmin]);
 
-  // ── Computed ──
+  // Computed
   const sortedProjects = useMemo(() =>
-    [...projects].sort((a, b) => (a.order ?? 999) - (b.order ?? 999)),
-    [projects]
-  );
+    [...projects].sort((a, b) => (a.order ?? 999) - (b.order ?? 999)), [projects]);
 
   const currentProject = useMemo(
-    () => projects.find(p => p.id === selectedProjectId),
-    [projects, selectedProjectId]
-  );
+    () => projects.find(p => p.id === selectedProjectId), [projects, selectedProjectId]);
 
   const projectSteps = useMemo(() => {
     if (!selectedProjectId) return [];
@@ -226,8 +213,7 @@ export default function App() {
 
   const allProjectSteps = useMemo(
     () => selectedProjectId ? steps.filter(s => s.projectId === selectedProjectId) : [],
-    [steps, selectedProjectId]
-  );
+    [steps, selectedProjectId]);
 
   const stats = useMemo(() => {
     const total    = allProjectSteps.length;
@@ -237,7 +223,7 @@ export default function App() {
     return { total, done, progress, pending, percent: total ? Math.round((done / total) * 100) : 0 };
   }, [allProjectSteps]);
 
-  // ── Drag & Drop ──
+  // Drag & Drop
   const handleDragStart = (e, id) => { setDragId(id); e.dataTransfer.effectAllowed = 'move'; };
   const handleDragOver  = (e, id) => { e.preventDefault(); if (id !== dragId) setDragOverId(id); };
   const handleDragEnd   = () => { setDragId(null); setDragOverId(null); };
@@ -247,14 +233,12 @@ export default function App() {
     const sorted = [...sortedProjects];
     const fi = sorted.findIndex(p => p.id === dragId);
     const ti = sorted.findIndex(p => p.id === targetId);
-    const r  = [...sorted];
-    const [m] = r.splice(fi, 1);
-    r.splice(ti, 0, m);
+    const r  = [...sorted]; const [m] = r.splice(fi, 1); r.splice(ti, 0, m);
     setProjects(r.map((p, i) => ({ ...p, order: i })));
     handleDragEnd();
   };
 
-  // ── CRUD ──
+  // CRUD
   const saveProject = (p) => {
     if (p.id) {
       setProjects(prev => prev.map(x => x.id === p.id ? { ...x, name: p.name, description: p.description } : x));
@@ -298,7 +282,7 @@ export default function App() {
 
   const restoreFromHistory = (data) => {
     setProjects(data.projects || []);
-    setSteps(data.steps    || []);
+    setSteps(data.steps || []);
     setSelectedProjectId(data.selectedProjectId || data.projects?.[0]?.id || null);
     setShowHistory(false);
   };
@@ -315,7 +299,6 @@ export default function App() {
 
   return (
     <div className="font-body min-h-screen bg-stone-50 text-stone-900">
-      {/* Header */}
       <header className="border-b border-stone-200 bg-white sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -330,12 +313,10 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-1">
-            {isAdmin && (
-              <>
-                <button onClick={() => setShowAdmin(true)}  title="Admin panel"           className="p-2 rounded-md hover:bg-stone-100 text-stone-500"><Shield  className="w-4 h-4" /></button>
-                <button onClick={() => setShowHistory(true)} title="O'zgartirishlar tarixi" className="p-2 rounded-md hover:bg-stone-100 text-stone-500"><History className="w-4 h-4" /></button>
-              </>
-            )}
+            {isAdmin && <>
+              <button onClick={() => setShowAdmin(true)}   title="Admin panel"           className="p-2 rounded-md hover:bg-stone-100 text-stone-500"><Shield  className="w-4 h-4" /></button>
+              <button onClick={() => setShowHistory(true)} title="O'zgartirishlar tarixi" className="p-2 rounded-md hover:bg-stone-100 text-stone-500"><History className="w-4 h-4" /></button>
+            </>}
             {canEdit && (
               <button onClick={() => setProjectModal('new')} className="text-sm px-3 py-1.5 rounded-md bg-stone-900 text-white hover:bg-stone-800 flex items-center gap-1.5 ml-1">
                 <Plus className="w-4 h-4" /> <span className="hidden sm:inline">Yangi loyiha</span>
@@ -344,7 +325,7 @@ export default function App() {
             <div className="flex items-center gap-2 ml-2 pl-2 border-l border-stone-200">
               <div className="hidden sm:flex flex-col items-end">
                 <span className="text-xs font-medium text-stone-800">{user.name}</span>
-                <span className="text-[10px] text-stone-400 capitalize">{user.role === 'admin' ? 'Admin' : user.role === 'commenter' ? 'Kommentchi' : 'Kuzatuvchi'}</span>
+                <span className="text-[10px] text-stone-400">{user.role === 'admin' ? 'Admin' : user.role === 'commenter' ? 'Kommentchi' : 'Kuzatuvchi'}</span>
               </div>
               <button onClick={handleLogout} title="Chiqish" className="p-1.5 rounded-md hover:bg-stone-100 text-stone-500">
                 <LogOut className="w-4 h-4" />
@@ -355,7 +336,6 @@ export default function App() {
       </header>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8 flex gap-8">
-        {/* Sidebar */}
         <aside className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black/40 md:bg-transparent md:static md:inset-auto' : 'hidden md:block'}`}
                onClick={(e) => { if (e.target === e.currentTarget) setSidebarOpen(false); }}>
           <div className="bg-white md:bg-transparent w-72 md:w-56 h-full md:h-auto p-4 md:p-0 border-r md:border-0 border-stone-200 flex flex-col">
@@ -368,9 +348,9 @@ export default function App() {
               {sortedProjects.map(p => (
                 <div key={p.id}
                   draggable={canEdit}
-                  onDragStart={(e) => canEdit && handleDragStart(e, p.id)}
-                  onDragOver={(e)  => canEdit && handleDragOver(e, p.id)}
-                  onDrop={(e)      => canEdit && handleDrop(e, p.id)}
+                  onDragStart={e => canEdit && handleDragStart(e, p.id)}
+                  onDragOver={e  => canEdit && handleDragOver(e, p.id)}
+                  onDrop={e      => canEdit && handleDrop(e, p.id)}
                   onDragEnd={handleDragEnd}
                   className={`rounded-md transition-all ${dragOverId === p.id && dragId !== p.id ? 'border-2 border-stone-400 border-dashed' : 'border-2 border-transparent'} ${dragId === p.id ? 'opacity-40' : ''}`}
                 >
@@ -393,7 +373,6 @@ export default function App() {
           </div>
         </aside>
 
-        {/* Main */}
         <main className="flex-1 min-w-0">
           {loading ? (
             <div className="flex items-center justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-stone-400" /></div>
@@ -441,16 +420,13 @@ export default function App() {
               ) : (
                 <div className="space-y-2.5">
                   {projectSteps.map((step, idx) => (
-                    <StepCard
-                      key={step.id} step={step} isLast={idx === projectSteps.length - 1}
+                    <StepCard key={step.id} step={step} isLast={idx === projectSteps.length - 1}
                       expanded={expandedStepId === step.id}
                       onToggle={() => setExpandedStepId(expandedStepId === step.id ? null : step.id)}
                       onEdit={canEdit ? () => setStepModal(step) : null}
                       onDelete={canEdit ? () => setConfirmDelete({ type: 'step', id: step.id, name: step.title }) : null}
                       onOpenLightbox={openLightbox}
-                      canComment={canComment}
-                      user={user} token={token}
-                    />
+                      canComment={canComment} user={user} token={token} />
                   ))}
                 </div>
               )}
@@ -459,13 +435,12 @@ export default function App() {
         </main>
       </div>
 
-      {/* Modals */}
       {canEdit && projectModal !== null && <ProjectModal project={projectModal === 'new' ? null : projectModal} onSave={saveProject} onClose={() => setProjectModal(null)} />}
       {canEdit && stepModal !== null && selectedProjectId && <StepModal step={stepModal === 'new' ? null : stepModal} onSave={saveStep} onClose={() => setStepModal(null)} />}
       {confirmDelete && (
         <ConfirmDialog
           title={confirmDelete.type === 'reset' ? "Demo tiklash?" : confirmDelete.type === 'project' ? "Loyihani o'chirish?" : "Bosqichni o'chirish?"}
-          message={confirmDelete.type === 'reset' ? `"Yoshlar tadbirkorligi" demo loyihasi tiklanadi. Boshqa loyihalar o'zgarmaydi.` : `"${confirmDelete.name}" — qaytarib bo'lmaydi.`}
+          message={confirmDelete.type === 'reset' ? `"Yoshlar tadbirkorligi" tiklanadi. Boshqa loyihalar o'zgarmaydi.` : `"${confirmDelete.name}" — qaytarib bo'lmaydi.`}
           confirmLabel={confirmDelete.type === 'reset' ? 'Tiklash' : "O'chirish"}
           danger={confirmDelete.type !== 'reset'}
           onConfirm={() => {
@@ -473,8 +448,7 @@ export default function App() {
             else if (confirmDelete.type === 'step')    deleteStep(confirmDelete.id);
             else                                       resetDemo();
           }}
-          onCancel={() => setConfirmDelete(null)}
-        />
+          onCancel={() => setConfirmDelete(null)} />
       )}
       {lightbox    && <Lightbox images={lightbox.images} startIndex={lightbox.index} onClose={() => setLightbox(null)} />}
       {showHistory && isAdmin && <HistoryModal token={token} onRestore={restoreFromHistory} onClose={() => setShowHistory(false)} />}
@@ -483,7 +457,7 @@ export default function App() {
   );
 }
 
-// ============ LOGIN SCREEN ============
+// ============ LOGIN ============
 
 function LoginScreen({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -495,10 +469,10 @@ function LoginScreen({ onLogin }) {
     if (!username || !password) return;
     setLoading(true); setError('');
     try {
-      const r    = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
-      const data = await r.json();
-      if (data.token) onLogin(data.token, data.user);
-      else            setError(data.error || 'Noto\'g\'ri login yoki parol');
+      const r = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+      const d = await r.json();
+      if (d.token) onLogin(d.token, d.user);
+      else         setError(d.error || 'Noto\'g\'ri login yoki parol');
     } catch { setError('Server bilan bog\'lanib bo\'lmadi'); }
     setLoading(false);
   };
@@ -527,55 +501,61 @@ function LoginScreen({ onLogin }) {
 // ============ ADMIN PANEL ============
 
 function AdminPanel({ token, projects, steps, onClose }) {
-  const [users,      setUsers]      = useState([]);
-  const [loading,    setLoading]    = useState(true);
-  const [userModal,  setUserModal]  = useState(null);
-  const [delConfirm, setDelConfirm] = useState(null);
-  const [importData, setImportData] = useState(null);
-  const [importing,  setImporting]  = useState(false);
+  const [users,       setUsers]       = useState([]);
+  const [loading,     setLoading]     = useState(true);
+  const [userModal,   setUserModal]   = useState(null);
+  const [delConfirm,  setDelConfirm]  = useState(null);
+  const [importData,  setImportData]  = useState(null);
+  const [importing,   setImporting]   = useState(false);
+  const [cleaning,    setCleaning]    = useState(false);
+  const [cleanResult, setCleanResult] = useState('');
+  const [exportStatus,setExportStatus]= useState('');
 
   const loadUsers = () => {
-    apiFetch('/api/users', token)
-      .then(r => r.json())
+    apiFetch('/api/users', token).then(r => r.json())
       .then(d => { setUsers(Array.isArray(d) ? d : []); setLoading(false); });
   };
-
   useEffect(() => { loadUsers(); }, []);
+
+  const deleteUser = async (id) => {
+    await apiFetch(`/api/users/${id}`, token, { method: 'DELETE' });
+    setUsers(prev => prev.filter(u => u.id !== id));
+    setDelConfirm(null);
+  };
 
   const handleExport = async () => {
     try {
-      const r    = await apiFetch('/api/data', token);
-      const data = await r.json();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const r = await apiFetch('/api/data', token);
+      const d = await r.json();
+      const blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
       const url  = URL.createObjectURL(blob);
       const a    = document.createElement('a');
-      a.href     = url;
-      a.download = `loyihalarim_${new Date().toISOString().slice(0, 10)}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      a.href = url; a.download = `loyihalarim_${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (e) { alert('Export xatoligi: ' + e.message); }
   };
 
   const handleImportFile = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const file = e.target.files?.[0]; if (!file) return;
     try {
       const text = await file.text();
       const data = JSON.parse(text);
       if (!data.projects || !data.steps) { alert('Noto\'g\'ri fayl formati'); return; }
       setImportData(data);
-    } catch { alert('Fayl o\'qishda xatolik — JSON format to\'g\'ri emas'); }
+    } catch { alert('Fayl o\'qishda xatolik'); }
     e.target.value = '';
   };
 
-  const [cleaning,   setCleaning]   = useState(false);
-  const [cleanResult,setCleanResult]= useState('');
-  const [exportStatus, setExportStatus] = useState('');
-
-  const handleExportHTMLFile = () => exportAsHTML(projects, steps, setExportStatus);
-  const handleExportZIPFile  = () => exportAsZIP(projects, steps, setExportStatus);
+  const confirmImport = async () => {
+    if (!importData) return;
+    setImporting(true);
+    try {
+      await apiFetch('/api/data', token, { method: 'POST', body: importData });
+      setImportData(null); onClose(); window.location.reload();
+    } catch { alert('Import xatoligi'); }
+    setImporting(false);
+  };
 
   const handleCleanImages = async () => {
     setCleaning(true); setCleanResult('');
@@ -587,23 +567,8 @@ function AdminPanel({ token, projects, steps, onClose }) {
     setCleaning(false);
   };
 
-  const confirmImport = async () => {
-    if (!importData) return;
-    setImporting(true);
-    try {
-      await apiFetch('/api/data', token, { method: 'POST', body: importData });
-      setImportData(null);
-      onClose();
-      window.location.reload();
-    } catch { alert('Import xatoligi'); }
-    setImporting(false);
-  };
-
-  const deleteUser = async (id) => {
-    await apiFetch(`/api/users/${id}`, token, { method: 'DELETE' });
-    setUsers(prev => prev.filter(u => u.id !== id));
-    setDelConfirm(null);
-  };
+  const handleExportHTMLFile = () => exportAsHTML(projects, steps, setExportStatus);
+  const handleExportZIPFile  = () => exportAsZIP(projects, steps, setExportStatus);
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 p-0 sm:p-4">
@@ -625,10 +590,7 @@ function AdminPanel({ token, projects, steps, onClose }) {
           {loading ? (
             <div className="flex items-center justify-center py-8"><Loader2 className="w-5 h-5 animate-spin text-stone-400" /></div>
           ) : users.length === 0 ? (
-            <div className="text-center py-10 text-stone-500 text-sm">
-              Hali foydalanuvchi qo'shilmagan.<br />
-              "Foydalanuvchi qo'shish" tugmasini bosing.
-            </div>
+            <div className="text-center py-10 text-stone-500 text-sm">Hali foydalanuvchi qo'shilmagan.</div>
           ) : (
             <div className="space-y-2">
               {users.map(u => (
@@ -645,8 +607,8 @@ function AdminPanel({ token, projects, steps, onClose }) {
                       </span>
                     </div>
                     <div className="text-xs text-stone-500 mt-0.5">
-                      {u.projects.length === 0 ? 'Hech qaysi loyiha biriktirilmagan' :
-                        u.projects.map(pid => projects.find(p => p.id === pid)?.name || pid).join(', ')}
+                      {u.projects?.length === 0 ? 'Loyiha biriktirilmagan' :
+                        u.projects?.map(pid => projects.find(p => p.id === pid)?.name || pid).join(', ')}
                     </div>
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0">
@@ -659,75 +621,49 @@ function AdminPanel({ token, projects, steps, onClose }) {
           )}
         </div>
 
-        {/* Export / Import */}
         <div className="px-5 pb-5 pt-4 border-t border-stone-100 flex-shrink-0">
           <div className="text-xs uppercase tracking-wider text-stone-500 mb-3" style={{ letterSpacing: '0.08em' }}>
             Ma'lumotlarni boshqarish
           </div>
           <div className="flex gap-2 flex-wrap">
-            <button onClick={handleExport}
-                    className="px-3 py-2 text-sm rounded-md bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 inline-flex items-center gap-1.5">
+            <button onClick={handleExport} className="px-3 py-2 text-sm rounded-md bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 inline-flex items-center gap-1.5">
               <Download className="w-4 h-4" /> JSON Export
             </button>
             <label className="px-3 py-2 text-sm rounded-md bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200 inline-flex items-center gap-1.5 cursor-pointer">
               <Upload className="w-4 h-4" /> JSON Import
               <input type="file" accept=".json" className="hidden" onChange={handleImportFile} />
             </label>
-            <button onClick={handleExportHTMLFile} disabled={!!exportStatus}
-                    className="px-3 py-2 text-sm rounded-md bg-violet-50 text-violet-800 hover:bg-violet-100 border border-violet-200 inline-flex items-center gap-1.5 disabled:opacity-50">
-              {exportStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-              HTML Eksport
+            <button onClick={handleExportHTMLFile} disabled={!!exportStatus} className="px-3 py-2 text-sm rounded-md bg-violet-50 text-violet-800 hover:bg-violet-100 border border-violet-200 inline-flex items-center gap-1.5 disabled:opacity-50">
+              {exportStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />} HTML Eksport
             </button>
-            <button onClick={handleExportZIPFile} disabled={!!exportStatus}
-                    className="px-3 py-2 text-sm rounded-md bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200 inline-flex items-center gap-1.5 disabled:opacity-50">
-              {exportStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-              ZIP Eksport
+            <button onClick={handleExportZIPFile} disabled={!!exportStatus} className="px-3 py-2 text-sm rounded-md bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200 inline-flex items-center gap-1.5 disabled:opacity-50">
+              {exportStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />} ZIP Eksport
             </button>
-            <button onClick={handleCleanImages} disabled={cleaning}
-                    className="px-3 py-2 text-sm rounded-md bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200 inline-flex items-center gap-1.5 disabled:opacity-50">
-              {cleaning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-              Base64 tozalash
+            <button onClick={handleCleanImages} disabled={cleaning} className="px-3 py-2 text-sm rounded-md bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200 inline-flex items-center gap-1.5 disabled:opacity-50">
+              {cleaning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />} Base64 tozalash
             </button>
           </div>
-          {exportStatus && (
-            <p className="text-xs text-violet-700 bg-violet-50 px-2 py-1 rounded mt-2">{exportStatus}</p>
-          )}
-          {cleanResult && (
-            <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded mt-2">{cleanResult}</p>
-          )}
+          {exportStatus && <p className="text-xs text-violet-700 bg-violet-50 px-2 py-1 rounded mt-2">{exportStatus}</p>}
+          {cleanResult  && <p className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded mt-2">{cleanResult}</p>}
           <p className="text-xs text-stone-400 mt-2 leading-relaxed">
-            Export — zaxira nusxa. Import — boshqa qurilmadan ma'lumot yuklash (joriy ma'lumotlar almashtiriladi).
+            Export — zaxira nusxa. Import — boshqa qurilmadan ma'lumot yuklash (joriy almashtiriladi).
           </p>
         </div>
 
         {userModal !== null && (
-          <UserModal
-            user={userModal === 'new' ? null : userModal}
-            projects={projects}
-            token={token}
-            onSave={() => { loadUsers(); setUserModal(null); }}
-            onClose={() => setUserModal(null)}
-          />
+          <UserModal user={userModal === 'new' ? null : userModal} projects={projects} token={token}
+            onSave={() => { loadUsers(); setUserModal(null); }} onClose={() => setUserModal(null)} />
         )}
-
         {delConfirm && (
-          <ConfirmDialog
-            title="Foydalanuvchini o'chirish?"
+          <ConfirmDialog title="Foydalanuvchini o'chirish?"
             message={`"${delConfirm.name}" — bu amalni qaytarib bo'lmaydi.`}
-            onConfirm={() => deleteUser(delConfirm.id)}
-            onCancel={() => setDelConfirm(null)}
-          />
+            onConfirm={() => deleteUser(delConfirm.id)} onCancel={() => setDelConfirm(null)} />
         )}
-
         {importData && (
-          <ConfirmDialog
-            title="Import qilasizmi?"
-            message={`${importData.projects?.length || 0} ta loyiha, ${importData.steps?.length || 0} ta bosqich yuklanadi. Joriy barcha ma'lumotlar almashtiriladi.`}
-            confirmLabel={importing ? 'Yuklanmoqda...' : 'Ha, import qilish'}
-            danger={true}
-            onConfirm={confirmImport}
-            onCancel={() => setImportData(null)}
-          />
+          <ConfirmDialog title="Import qilasizmi?"
+            message={`${importData.projects?.length || 0} ta loyiha, ${importData.steps?.length || 0} ta bosqich yuklanadi. Joriy ma'lumotlar almashtiriladi.`}
+            confirmLabel={importing ? 'Yuklanmoqda...' : 'Ha, import qilish'} danger={true}
+            onConfirm={confirmImport} onCancel={() => setImportData(null)} />
         )}
       </div>
     </div>
@@ -752,11 +688,11 @@ function UserModal({ user, projects, token, onSave, onClose }) {
     setSaving(true); setError('');
     const body = { name, username, role, projects: [...selected], ...(password ? { password } : {}) };
     try {
-      const r    = user
+      const r = user
         ? await apiFetch(`/api/users/${user.id}`, token, { method: 'PUT',  body })
         : await apiFetch('/api/users',            token, { method: 'POST', body });
-      const data = await r.json();
-      if (!r.ok) { setError(data.error || 'Xatolik'); setSaving(false); return; }
+      const d = await r.json();
+      if (!r.ok) { setError(d.error || 'Xatolik'); setSaving(false); return; }
       onSave();
     } catch { setError('Server xatoligi'); }
     setSaving(false);
@@ -779,21 +715,19 @@ function UserModal({ user, projects, token, onSave, onClose }) {
             <input className={inputCls} value={username} onChange={e => setUsername(e.target.value)} placeholder="username" />
           </label>
           <label className="block">
-            <div className="text-xs font-medium text-stone-700 mb-1.5">Parol {user ? '(bo\'sh qolsa — o\'zgarmaydi)' : '*'}</div>
-            <input type="password" className={inputCls} value={password} onChange={e => setPassword(e.target.value)} placeholder={user ? 'Yangi parol...' : 'Parol'} />
+            <div className="text-xs font-medium text-stone-700 mb-1.5">Parol {user ? '(bo\'sh — o\'zgarmaydi)' : '*'}</div>
+            <input type="password" className={inputCls} value={password} onChange={e => setPassword(e.target.value)} />
           </label>
           <label className="block">
             <div className="text-xs font-medium text-stone-700 mb-1.5">Rol</div>
             <select className={inputCls} value={role} onChange={e => setRole(e.target.value)}>
               <option value="viewer">Kuzatuvchi (faqat o'qiydi)</option>
-              <option value="commenter">Kommentchi (o'qiydi + komment yozadi)</option>
+              <option value="commenter">Kommentchi (o'qiydi + komment)</option>
             </select>
           </label>
           <div>
             <div className="text-xs font-medium text-stone-700 mb-2">Loyihalar</div>
-            {projects.length === 0 ? (
-              <p className="text-xs text-stone-500">Hali loyiha qo'shilmagan.</p>
-            ) : (
+            {projects.length === 0 ? <p className="text-xs text-stone-500">Hali loyiha yo'q.</p> : (
               <div className="space-y-1.5 max-h-40 overflow-y-auto">
                 {projects.map(p => (
                   <label key={p.id} className="flex items-center gap-2.5 cursor-pointer p-2 rounded-md hover:bg-stone-50">
@@ -828,8 +762,7 @@ function Comments({ step, user, token, canComment }) {
   useEffect(() => {
     if (!step.projectId || !step.id) return;
     apiFetch(`/api/comments/${step.projectId}/${step.id}`, token)
-      .then(r => r.json())
-      .then(d => { setComments(Array.isArray(d) ? d : []); setLoading(false); });
+      .then(r => r.json()).then(d => { setComments(Array.isArray(d) ? d : []); setLoading(false); });
   }, [step.id, step.projectId, token]);
 
   const send = async () => {
@@ -853,7 +786,6 @@ function Comments({ step, user, token, canComment }) {
         <span>Kommentlar {!loading && comments.length > 0 && `· ${comments.length}`}</span>
         <span className="flex-1 h-px bg-stone-200"></span>
       </div>
-
       {loading ? (
         <div className="flex items-center gap-2 text-xs text-stone-400 py-2"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Yuklanmoqda...</div>
       ) : (
@@ -869,9 +801,7 @@ function Comments({ step, user, token, canComment }) {
                   <span className="text-xs font-medium text-stone-800">{c.authorName}</span>
                   <span className="text-[11px] text-stone-400">{formatCommentDate(c.createdAt)}</span>
                   {(user?.role === 'admin' || user?.id === c.authorId) && (
-                    <button onClick={() => del(c.id)} className="ml-auto text-stone-300 hover:text-red-500 p-0.5">
-                      <X className="w-3 h-3" />
-                    </button>
+                    <button onClick={() => del(c.id)} className="ml-auto text-stone-300 hover:text-red-500 p-0.5"><X className="w-3 h-3" /></button>
                   )}
                 </div>
                 <p className="text-sm text-stone-700 leading-relaxed">{c.text}</p>
@@ -880,17 +810,11 @@ function Comments({ step, user, token, canComment }) {
           ))}
         </div>
       )}
-
       {canComment && (
         <div className="flex gap-2 items-end">
-          <textarea
-            className={`${inputCls} resize-none flex-1`}
-            rows={2}
-            placeholder="Komment yozing..."
-            value={text}
+          <textarea className={`${inputCls} resize-none flex-1`} rows={2} placeholder="Komment yozing..." value={text}
             onChange={e => setText(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
-          />
+            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }} />
           <button onClick={send} disabled={!text.trim() || sending} className="p-2 rounded-md bg-stone-900 text-white hover:bg-stone-800 disabled:opacity-40 flex-shrink-0">
             {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
           </button>
@@ -944,9 +868,9 @@ function EmptyState({ onCreate, canCreate }) {
 // ============ STEP CARD ============
 
 function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, isLast, canComment, user, token }) {
-  const typeMeta  = getStepTypeMeta(step.type);
-  const TypeIcon  = typeMeta.icon;
-  const statusCfg = STATUSES[step.status];
+  const typeMeta   = getStepTypeMeta(step.type);
+  const TypeIcon   = typeMeta.icon;
+  const statusCfg  = STATUSES[step.status];
   const StatusIcon = statusCfg.icon;
   const isPending  = step.status === 'pending';
   const hasImages  = step.images?.length > 0;
@@ -982,8 +906,9 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
               {heroImage && (
                 <button onClick={() => onOpenLightbox(step.images, 0)} className="block w-full relative group bg-stone-100">
                   <div className="aspect-[16/9] overflow-hidden">
-                    <img src={heroImage.url} alt={heroImage.caption || ''} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                         onError={(e) => { e.currentTarget.parentElement.parentElement.style.display = 'none'; }} />
+                    <img src={convertDriveUrl(heroImage.url)} alt={heroImage.caption || ''}
+                         className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                         onError={e => { e.currentTarget.parentElement.parentElement.style.display = 'none'; }} />
                   </div>
                   <div className="absolute top-3 right-3 bg-black/50 rounded-md p-1.5 opacity-0 group-hover:opacity-100 transition"><ZoomIn className="w-4 h-4 text-white" /></div>
                   {heroImage.caption && (
@@ -993,7 +918,6 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
                   )}
                 </button>
               )}
-
               <div className="p-4 sm:p-6">
                 <div className="flex flex-wrap gap-2 mb-5">
                   <StatCard icon={Calendar} label="Reja sanasi"    value={formatDateShort(step.scheduledDate)} />
@@ -1001,13 +925,11 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
                   {step.location      && <StatCard icon={MapPin}   label="Manzil"        value={step.location} />}
                   {step.participants  && <StatCard icon={Users}    label="Qatnashchilar" value={`${step.participants} kishi`} />}
                 </div>
-
                 {step.fullDescription && (
                   <div className="tracker-prose font-display text-stone-800 text-[15px] mb-6 max-w-2xl" style={{ fontWeight: 400 }}>
                     {step.fullDescription.split(/\n\n+/).map((p, i) => <p key={i}>{p}</p>)}
                   </div>
                 )}
-
                 {galleryImages.length > 0 && (
                   <div className="mb-6">
                     <SectionHeader>Galereya</SectionHeader>
@@ -1015,10 +937,12 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
                       {galleryImages.map((img, i) => (
                         <button key={i} onClick={() => onOpenLightbox(step.images, i + 1)}
                                 className="group relative block aspect-square bg-stone-100 rounded-lg overflow-hidden border border-stone-200 hover:border-stone-300">
-                          <img src={img.url} alt={img.caption || ''} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                               onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                          <img src={convertDriveUrl(img.url)} alt={img.caption || ''}
+                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                               onError={e => { e.currentTarget.style.display = 'none'; }} />
                           {img.caption && (
-                            <div className="absolute bottom-0 left-0 right-0 pt-8 pb-2 px-2.5 text-left opacity-0 group-hover:opacity-100 transition" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75), transparent)' }}>
+                            <div className="absolute bottom-0 left-0 right-0 pt-8 pb-2 px-2.5 text-left opacity-0 group-hover:opacity-100 transition"
+                                 style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75), transparent)' }}>
                               <p className="text-white text-xs leading-tight">{img.caption}</p>
                             </div>
                           )}
@@ -1027,7 +951,6 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
                     </div>
                   </div>
                 )}
-
                 {step.files?.length > 0 && (
                   <div className="mb-6">
                     <SectionHeader>Fayllar</SectionHeader>
@@ -1049,12 +972,9 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
                     </div>
                   </div>
                 )}
-
-                {/* Kommentlar */}
                 <div className="mb-4">
                   <Comments step={step} user={user} token={token} canComment={canComment} />
                 </div>
-
                 {(onEdit || onDelete) && (
                   <div className="flex gap-2 pt-4 border-t border-stone-100">
                     {onEdit   && <button onClick={onEdit}   className="text-xs px-3 py-1.5 rounded-md border border-stone-200 hover:bg-stone-50 inline-flex items-center gap-1.5"><Pencil className="w-3.5 h-3.5" /> Tahrirlash</button>}
@@ -1075,7 +995,7 @@ function StepCard({ step, expanded, onToggle, onEdit, onDelete, onOpenLightbox, 
 function Lightbox({ images, startIndex, onClose }) {
   const [index, setIndex] = useState(startIndex || 0);
   useEffect(() => {
-    const h = (e) => {
+    const h = e => {
       if (e.key === 'Escape')     onClose();
       if (e.key === 'ArrowLeft')  setIndex(i => Math.max(0, i - 1));
       if (e.key === 'ArrowRight') setIndex(i => Math.min(images.length - 1, i + 1));
@@ -1092,8 +1012,8 @@ function Lightbox({ images, startIndex, onClose }) {
         <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-md"><X className="w-5 h-5" /></button>
       </div>
       <div className="flex-1 flex items-center justify-center px-2 sm:px-12 min-h-0 relative" onClick={e => e.stopPropagation()}>
-        {index > 0          && <button onClick={() => setIndex(i => i - 1)} className="absolute left-2 sm:left-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white"><ChevronLeft  className="w-5 h-5" /></button>}
-        <img src={img.url} alt={img.caption || ''} className="max-h-full max-w-full object-contain select-none" />
+        {index > 0 && <button onClick={() => setIndex(i => i - 1)} className="absolute left-2 sm:left-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white"><ChevronLeft className="w-5 h-5" /></button>}
+        <img src={convertDriveUrl(img.url)} alt={img.caption || ''} className="max-h-full max-w-full object-contain select-none" />
         {index < images.length - 1 && <button onClick={() => setIndex(i => i + 1)} className="absolute right-2 sm:right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white"><ChevronRight className="w-5 h-5" /></button>}
       </div>
       {img.caption && <div className="px-4 py-4 text-center text-white/90 text-sm flex-shrink-0" onClick={e => e.stopPropagation()}>{img.caption}</div>}
@@ -1145,7 +1065,8 @@ function HistoryModal({ token, onRestore, onClose }) {
                   {idx > 0 && (confirmId === entry.id ? (
                     <div className="flex items-center gap-1.5 flex-shrink-0">
                       <span className="text-xs text-stone-500">Ishonchingiz komilmi?</span>
-                      <button onClick={() => restore(entry.id)} disabled={!!restoring} className="text-xs px-2 py-1 rounded bg-stone-900 text-white hover:bg-stone-700 disabled:opacity-50 inline-flex items-center gap-1">
+                      <button onClick={() => restore(entry.id)} disabled={!!restoring}
+                              className="text-xs px-2 py-1 rounded bg-stone-900 text-white hover:bg-stone-700 disabled:opacity-50 inline-flex items-center gap-1">
                         {restoring === entry.id && <Loader2 className="w-3 h-3 animate-spin" />} Ha
                       </button>
                       <button onClick={() => setConfirmId(null)} className="text-xs px-2 py-1 rounded border border-stone-200 hover:bg-stone-50">Yo'q</button>
@@ -1159,7 +1080,7 @@ function HistoryModal({ token, onRestore, onClose }) {
           )}
         </div>
         <div className="px-5 py-3 border-t border-stone-100 flex-shrink-0">
-          <p className="text-xs text-stone-400">Har daqiqada avtomatik saqlanadi. Maksimum 50 ta yozuv.</p>
+          <p className="text-xs text-stone-400">Har soatda avtomatik saqlanadi. Maksimum 50 ta yozuv.</p>
         </div>
       </div>
     </div>
@@ -1197,7 +1118,10 @@ const inputCls = "w-full px-3 py-2 text-sm border border-stone-200 rounded-md fo
 function ProjectModal({ project, onSave, onClose }) {
   const [name, setName] = useState(project?.name || '');
   const [description, setDescription] = useState(project?.description || '');
-  const submit = () => { if (!name.trim()) return; onSave({ id: project?.id || null, name: name.trim(), description: description.trim() }); };
+  const submit = () => {
+    if (!name.trim()) return;
+    onSave({ id: project?.id || null, name: name.trim(), description: description.trim() });
+  };
   return (
     <Modal title={project ? 'Loyihani tahrirlash' : 'Yangi loyiha'} onClose={onClose}>
       <Field label="Loyiha nomi *"><input className={inputCls} value={name} onChange={e => setName(e.target.value)} autoFocus onKeyDown={e => e.key === 'Enter' && submit()} /></Field>
@@ -1208,14 +1132,6 @@ function ProjectModal({ project, onSave, onClose }) {
       </div>
     </Modal>
   );
-}
-
-function convertDriveUrl(url) {
-  const m = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
-  const m2 = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
-  if (m2) return `https://drive.google.com/uc?export=view&id=${m2[1]}`;
-  return url;
 }
 
 function StepModal({ step, onSave, onClose }) {
@@ -1248,15 +1164,22 @@ function StepModal({ step, onSave, onClose }) {
   const addImageUrl = () => {
     if (!imageUrl.trim()) return;
     const url = convertDriveUrl(imageUrl.trim());
-    setImages(prev => [...prev, { url, caption: imageCaption.trim() }]); setImageUrl(''); setImageCaption(''); };
-  const addFileUrl  = () => { if (!fileUrl.trim())  return; setFiles(p  => [...p, { url: fileUrl.trim(),  name: fileName.trim() || fileUrl.trim().split('/').pop() }]); setFileUrl(''); setFileName(''); };
+    setImages(prev => [...prev, { url, caption: imageCaption.trim() }]);
+    setImageUrl(''); setImageCaption('');
+  };
+
+  const addFileUrl = () => {
+    if (!fileUrl.trim()) return;
+    setFiles(prev => [...prev, { url: fileUrl.trim(), name: fileName.trim() || fileUrl.trim().split('/').pop() }]);
+    setFileUrl(''); setFileName('');
+  };
 
   const handleUpload = (e, isImage) => {
     const file = e.target.files?.[0]; if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-      if (isImage) setImages(p => [...p, { url: reader.result, caption: '' }]);
-      else         setFiles(p  => [...p, { url: reader.result, name: file.name }]);
+      if (isImage) setImages(prev => [...prev, { url: reader.result, caption: '' }]);
+      else         setFiles(prev  => [...prev, { url: reader.result, name: file.name }]);
     };
     reader.readAsDataURL(file);
     e.target.value = '';
@@ -1276,19 +1199,20 @@ function StepModal({ step, onSave, onClose }) {
       <Field label="Qisqa tavsif"><textarea className={inputCls} rows={2} value={shortDescription} onChange={e => setShortDescription(e.target.value)} /></Field>
       <Field label="To'liq ma'lumot" hint="Yangi paragraf uchun bo'sh qator qoldiring"><textarea className={inputCls} rows={5} value={fullDescription} onChange={e => setFullDescription(e.target.value)} /></Field>
       <div className="grid grid-cols-2 gap-3">
-        <Field label="Manzil"><input className={inputCls} value={location} onChange={e => setLocation(e.target.value)} /></Field>
+        <Field label="Manzil"><input className={inputCls} value={location} onChange={e => setLocation(e.target.value)} placeholder="Toshkent" /></Field>
         <Field label="Qatnashchilar"><input type="number" className={inputCls} value={participants} onChange={e => setParticipants(e.target.value)} /></Field>
       </div>
 
-      {/* Rasmlar */}
       <div className="mb-4">
         <div className="text-xs font-medium text-stone-700 mb-1.5">Rasmlar</div>
-        <div className="flex gap-2 mb-2">
-          <label className="inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-md bg-emerald-50 text-emerald-800 hover:bg-emerald-100 cursor-pointer border border-emerald-200"><Upload className="w-4 h-4" /> Yuklash<input type="file" accept="image/*" className="hidden" onChange={e => handleUpload(e, true)} /></label>
+        <div className="flex flex-wrap gap-2 mb-2">
+          <label className="inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-md bg-emerald-50 text-emerald-800 hover:bg-emerald-100 cursor-pointer border border-emerald-200">
+            <Upload className="w-4 h-4" /> Yuklash<input type="file" accept="image/*" className="hidden" onChange={e => handleUpload(e, true)} />
+          </label>
           <span className="text-xs text-stone-400 self-center">yoki URL:</span>
         </div>
         <div className="flex gap-2 mb-2">
-          <input className={inputCls} placeholder="https://..." value={imageUrl} onChange={e => setImageUrl(e.target.value)} />
+          <input className={inputCls} placeholder="https:// yoki Google Drive havolasi..." value={imageUrl} onChange={e => setImageUrl(e.target.value)} />
           <input className={`${inputCls} max-w-[120px]`} placeholder="Izoh" value={imageCaption} onChange={e => setImageCaption(e.target.value)} onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addImageUrl())} />
           <button onClick={addImageUrl} className="px-3 py-2 text-sm rounded-md bg-stone-100 hover:bg-stone-200 flex-shrink-0"><Plus className="w-4 h-4" /></button>
         </div>
@@ -1296,7 +1220,7 @@ function StepModal({ step, onSave, onClose }) {
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
             {images.map((img, i) => (
               <div key={i} className="relative group aspect-square bg-stone-100 rounded-lg overflow-hidden border border-stone-200">
-                <img src={img.url} alt="" className="w-full h-full object-cover" onError={e => { e.currentTarget.style.display = 'none'; }} />
+                <img src={convertDriveUrl(img.url)} alt="" className="w-full h-full object-cover" onError={e => { e.currentTarget.style.display = 'none'; }} />
                 {i === 0 && <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-medium">Asosiy</span>}
                 <button onClick={() => setImages(images.filter((_, j) => j !== i))} className="absolute top-1 right-1 p-1 bg-black/50 hover:bg-black/70 rounded-md text-white opacity-0 group-hover:opacity-100 transition"><X className="w-3 h-3" /></button>
               </div>
@@ -1305,11 +1229,12 @@ function StepModal({ step, onSave, onClose }) {
         )}
       </div>
 
-      {/* Fayllar */}
       <div className="mb-4">
         <div className="text-xs font-medium text-stone-700 mb-1.5">Fayllar</div>
-        <div className="flex gap-2 mb-2">
-          <label className="inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-md bg-blue-50 text-blue-800 hover:bg-blue-100 cursor-pointer border border-blue-200"><Upload className="w-4 h-4" /> Yuklash<input type="file" className="hidden" onChange={e => handleUpload(e, false)} /></label>
+        <div className="flex flex-wrap gap-2 mb-2">
+          <label className="inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-md bg-blue-50 text-blue-800 hover:bg-blue-100 cursor-pointer border border-blue-200">
+            <Upload className="w-4 h-4" /> Yuklash<input type="file" className="hidden" onChange={e => handleUpload(e, false)} />
+          </label>
           <span className="text-xs text-stone-400 self-center">yoki URL:</span>
         </div>
         <div className="flex gap-2 mb-2">
