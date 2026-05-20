@@ -1210,6 +1210,14 @@ function ProjectModal({ project, onSave, onClose }) {
   );
 }
 
+function convertDriveUrl(url) {
+  const m = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  const m2 = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if (m2) return `https://drive.google.com/uc?export=view&id=${m2[1]}`;
+  return url;
+}
+
 function StepModal({ step, onSave, onClose }) {
   const [title,            setTitle]            = useState(step?.title || '');
   const [type,             setType]             = useState(step?.type || 'meeting');
@@ -1237,7 +1245,10 @@ function StepModal({ step, onSave, onClose }) {
     });
   };
 
-  const addImageUrl = () => { if (!imageUrl.trim()) return; setImages(p => [...p, { url: imageUrl.trim(), caption: imageCaption.trim() }]); setImageUrl(''); setImageCaption(''); };
+  const addImageUrl = () => {
+    if (!imageUrl.trim()) return;
+    const url = convertDriveUrl(imageUrl.trim());
+    setImages(prev => [...prev, { url, caption: imageCaption.trim() }]); setImageUrl(''); setImageCaption(''); };
   const addFileUrl  = () => { if (!fileUrl.trim())  return; setFiles(p  => [...p, { url: fileUrl.trim(),  name: fileName.trim() || fileUrl.trim().split('/').pop() }]); setFileUrl(''); setFileName(''); };
 
   const handleUpload = (e, isImage) => {
